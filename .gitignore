@@ -1,1 +1,5 @@
 .DS_Store
+
+### redis hands on ###
+
+redis/redis-hands-on/src/main/resources/application.yaml
