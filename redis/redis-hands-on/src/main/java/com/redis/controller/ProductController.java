@@ -2,12 +2,14 @@ package com.redis.controller;
 
 import com.redis.entity.Product;
 import com.redis.service.ProductService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -35,6 +37,7 @@ public class ProductController {
     public ResponseEntity<Product> getProductById(@PathVariable Long id){
         Product product = this.productService.getProductById(id);
         if(product == null){
+            log.info("Product not found for ID: {}", id);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(product, HttpStatus.OK);
@@ -45,6 +48,7 @@ public class ProductController {
         Product updatedProduct = this.productService.updateProduct(id, product);
 
         if(updatedProduct == null){
+            log.info("Product not found for ID: {}", id);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
@@ -54,6 +58,7 @@ public class ProductController {
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id){
         boolean deleted = this.productService.deleteProduct(id);
         if(!deleted){
+            log.info("Product not found for ID: {}", id);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
