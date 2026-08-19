@@ -1,41 +1,52 @@
 # Spring Boot Redis Hands-On
 
-A hands-on Spring Boot project demonstrating how to integrate Redis with Spring Boot for high-performance caching and in-memory data storage.
+A hands-on Spring Boot project demonstrating Redis integration for caching and in-memory data storage.
 
-This project covers Redis fundamentals, caching strategies, and Spring Cache annotations through practical examples.
+This project focuses on commonly used Redis concepts in Java and Spring Boot applications, with an emphasis on practical and interview-oriented learning.
 
 ---
 
 ## 🚀 Tech Stack
 
-- Java
-- Spring Boot
+- Java 21
+- Spring Boot 4.1
 - Spring Data Redis
 - Spring Data JPA
 - MySQL
 - Redis
 - Maven
+- Postman
 
 ---
 
 ## 📚 Topics Covered
 
 ### Redis Data Types
-- ✅ String
-- ✅ Hash
-- ⏳ List (Introduction)
-- ⏳ Set (Introduction)
+
+- ✅ Redis String
+- ✅ Redis Hash
+
+---
 
 ### Redis Features
-- ✅ TTL (Time To Live)
-- ✅ Cache Aside Pattern
+
 - ✅ RedisTemplate
-- ✅ StringRedisTemplate
+- ✅ TTL (Time To Live)
+- ✅ EXPIRE
+- ✅ PERSIST
+- ✅ Cache Aside Pattern
+- ✅ Cache Hit and Cache Miss
+- ✅ Cache Invalidation
+
+---
 
 ### Spring Boot Caching
-- ✅ @Cacheable
-- ✅ @CachePut
-- ✅ @CacheEvict
+
+- ✅ Spring Cache
+- ✅ Redis CacheManager
+- ✅ `@Cacheable`
+- ✅ `@CachePut`
+- ✅ `@CacheEvict`
 
 ---
 
@@ -44,18 +55,35 @@ This project covers Redis fundamentals, caching strategies, and Spring Cache ann
 ```text
 src
 ├── controller
+│   ├── ProductController
+│   ├── RedisController
+│   ├── ProductHashController
+│   └── SpringCacheProductController
+│
 ├── service
+│   ├── ProductService
+│   ├── RedisService
+│   ├── ProductHashService
+│   └── SpringCacheProductService
+│
 ├── repository
+│   └── ProductRepository
+│
 ├── entity
+│   └── Product
+│
 ├── config
+│   └── RedisConfig
+│
 └── resources
+    └── application.yaml
 ```
 
 ---
 
 ## 🛠 Prerequisites
 
-- Java 17
+- Java 21
 - Maven
 - MySQL
 - Redis
@@ -72,6 +100,8 @@ git clone https://github.com/nikhilmahajan1122/hands-on/redis-hands-on.git
 
 ### Start Redis
 
+If using Docker:
+
 ```bash
 docker run --name redis -p 6379:6379 -d redis
 ```
@@ -82,9 +112,24 @@ docker run --name redis -p 6379:6379 -d redis
 CREATE DATABASE redis_demo;
 ```
 
-### Configure application.yaml
+### Configure `application.yaml`
 
-Update the datasource and Redis connection details as per your environment.
+Update the MySQL and Redis connection details according to your local environment.
+
+Example:
+
+```yaml
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/redis_demo
+    username: your_username
+    password: your_password
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+```
 
 ### Run the application
 
@@ -94,38 +139,43 @@ mvn spring-boot:run
 
 ---
 
+## 🧪 Testing
+
+The application was tested using:
+
+- Postman
+- Application logs
+- `redis-cli`
+
+Redis commands can be used to inspect stored keys, hashes, and TTL values.
+
+---
+
 ## 📖 Learning Roadmap
 
-- [ ] Configure Redis with Spring Boot
-- [ ] Practice String operations
-- [ ] Practice Hash operations
-- [ ] Work with TTL
-- [ ] Implement Cache Aside Pattern
-- [ ] Explore RedisTemplate
-- [ ] Explore StringRedisTemplate
-- [ ] Implement @Cacheable
-- [ ] Implement @CachePut
-- [ ] Implement @CacheEvict
-- [ ] Practice List operations
-- [ ] Practice Set operations
+- [x] Configure Redis with Spring Boot
+- [x] Practice Redis String operations
+- [x] Practice Redis Hash operations
+- [x] Work with TTL
+- [x] Work with EXPIRE and PERSIST
+- [x] Implement Cache Aside Pattern
+- [x] Understand Cache Hit and Cache Miss
+- [x] Implement Cache Invalidation
+- [x] Explore RedisTemplate
+- [x] Implement Spring Cache
+- [x] Implement `@Cacheable`
+- [x] Implement `@CachePut`
+- [x] Implement `@CacheEvict`
 
 ---
 
 ## 🎯 Goal
 
-The objective of this repository is to gain practical experience with Redis and understand how it is used in Spring Boot applications for caching and improving application performance.
+The objective of this repository is to gain practical experience with Redis and understand how it is commonly used with Spring Boot applications.
 
----
+The project focuses on interview-relevant Redis concepts, including caching, Redis data structures, TTL management, cache invalidation, Cache Aside Pattern, and Spring Cache annotations.
 
-## 📌 Future Enhancements
-
-- Redis Pub/Sub
-- Distributed Locking
-- Rate Limiting
-- Session Management
-- Redis Streams
-- Docker Compose Integration
-- Unit & Integration Tests
+The goal is to build a practical understanding of Redis for Java and Spring Boot development rather than cover advanced Redis concepts in depth.
 
 ---
 
