@@ -57,10 +57,13 @@ public class ProductService {
         existingProduct.setCategory(updatedProduct.getCategory());
         existingProduct.setPrice(updatedProduct.getPrice());
 
-        redisTemplate.delete(key);
-        log.info("Product {} updated in MySQL and cache evicted from Redis", id);
+        Product savedProduct = this.productRepository.save(existingProduct);
 
-        return this.productRepository.save(existingProduct);
+        redisTemplate.opsForValue().set(key, savedProduct);
+
+        log.info("Product {} updated in MySQL and Redis cache", id);
+
+        return savedProduct;
     }
 
     public boolean deleteProduct(Long id) {
